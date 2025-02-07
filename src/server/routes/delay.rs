@@ -4,7 +4,7 @@ use tokio::time::{sleep, Duration};
 pub fn build() -> Router {
     Router::new()
         .route("/", get(delay))
-        .route("/:seconds", get(specified_delay))
+        .route("/{seconds}", get(specified_delay))
 }
 
 pub async fn delay() {

@@ -8,20 +8,20 @@ repository = "https://github.com/azdle/litebin"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
-anyhow = { version = "1.0.71", features = ["backtrace"] }
-axum = "0.6.18"
+anyhow = { version = "1", features = ["backtrace"] }
+axum = "0.8"
 futures-util = "0.3"
-hyper = "0.14.26"
-maud = { version = "0.25.0", features = ["axum"] }
+hyper = "1"
+maud = { version = "0.27", features = ["axum"] }
 pin-project = "1.1.0"
 serde = { version = "1.0.164", features = ["derive"] }
 serde_json = "1.0.99"
-thiserror = "1.0.40"
+thiserror = "2"
 tokio = { version = "1.28.2", features = ["full"] }
 tokio-stream = "0.1"
 tracing = "0.1.37"
 tracing-subscriber = { version = "0.3", features =["env-filter"] }
 
 [dev-dependencies]
-reqwest = "0.11.18"
+reqwest = "0.12"
 test-log = { version = "0.2.12", default-features = false, features = ["trace"] }

@@ -18,15 +18,20 @@ struct TestServer {
 impl TestServer {
     async fn spawn() -> TestServer {
         info!("start server");
-        let mut server = LiteBin::serve("[::]:0".parse().unwrap());
-        let shutdown_handle = server.take_shutdown_handle().unwrap();
+        let (shutdown_tx, shutdown_rx) = oneshot::channel();
+        let shutdown_signal = async {
+            let _ = shutdown_rx.await;
+        };
+        let server = LiteBin::serve("[::]:0".parse().unwrap(), shutdown_signal)
+            .await
+            .expect("build server");
         let addr = server.local_addr();
         let server_task_handle = tokio::spawn(server.map(|res| res.unwrap()));
         info!("server spawned");
 
         TestServer {
             server_task_handle,
-            shutdown_handle,
+            shutdown_handle: shutdown_tx,
             addr,
         }
     }
